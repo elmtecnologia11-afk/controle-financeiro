@@ -8,6 +8,7 @@ export interface Expense {
   type: ExpenseType
   date: string
   createdAt: string
+  userId?: string
 }
 
 export const CATEGORIES = [

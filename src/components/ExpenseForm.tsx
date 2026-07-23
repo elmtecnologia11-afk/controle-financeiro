@@ -4,7 +4,7 @@ import { CATEGORIES } from '../types'
 import { PlusCircle, Receipt, Banknote } from 'lucide-react'
 
 interface ExpenseFormProps {
-  onAdd: (expense: Expense) => void
+  onAdd: (expense: Omit<Expense, 'id'>) => void
 }
 
 export function ExpenseForm({ onAdd }: ExpenseFormProps) {
@@ -19,7 +19,6 @@ export function ExpenseForm({ onAdd }: ExpenseFormProps) {
     if (!description.trim() || !amount) return
 
     onAdd({
-      id: crypto.randomUUID(),
       description: description.trim(),
       amount: parseFloat(amount),
       category,
