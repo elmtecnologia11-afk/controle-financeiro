@@ -6,13 +6,15 @@ import { Header } from './components/Header'
 import { Dashboard } from './components/Dashboard'
 import { ExpenseForm } from './components/ExpenseForm'
 import { ExpenseList } from './components/ExpenseList'
-import { Loader2, AlertCircle } from 'lucide-react'
+import { LoginPage } from './components/LoginPage'
+import { Loader2 } from 'lucide-react'
 import './App.css'
 
 export default function App() {
-  const { user, loading, expenses, addExpense, deleteExpense, signIn, error } = useFirebase()
+  const { user, loading, expenses, addExpense, deleteExpense, login, signUp, signOut, error } = useFirebase()
   const [localExpenses, setLocalExpenses] = useState<Expense[]>(() => loadExpenses())
   const [page, setPage] = useState('dashboard')
+
   useEffect(() => {
     if (user) {
       const local = loadExpenses()
@@ -46,38 +48,22 @@ export default function App() {
     }
   }
 
+  if (!user) {
+    return <LoginPage onLogin={login} onSignUp={signUp} onClearError={() => {}} error={error} loading={loading} />
+  }
+
   if (loading) {
     return (
       <div className="loading-screen">
         <Loader2 size={32} className="spin" />
-        <p>Conectando...</p>
-      </div>
-    )
-  }
-
-  if (!user) {
-    return (
-      <div className="loading-screen">
-        <h2>Controle Financeiro</h2>
-        <p>Seus dados salvos na nuvem</p>
-        <button className="btn-primary" onClick={signIn} style={{ maxWidth: 300 }}>
-          Entrar anonimamente
-        </button>
-        <button
-          className="btn-secondary"
-          onClick={() => window.location.reload()}
-          style={{ maxWidth: 300, marginTop: 8 }}
-        >
-          Usar apenas local (sem nuvem)
-        </button>
-        {error && <p className="error-msg"><AlertCircle size={16} /> {error}</p>}
+        <p>Carregando dados...</p>
       </div>
     )
   }
 
   return (
     <div className="app">
-      <Header currentPage={page} onNavigate={setPage} />
+      <Header currentPage={page} onNavigate={setPage} onSignOut={signOut} />
       <main className="main">
         {page === 'dashboard' && <Dashboard expenses={currentExpenses} />}
         {page === 'add' && <ExpenseForm onAdd={handleAdd} />}

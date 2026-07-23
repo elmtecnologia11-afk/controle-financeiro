@@ -129,6 +129,77 @@ h2 {
 .month-diff.up { color: var(--danger); }
 .month-diff.down { color: var(--success); }
 
+/* Login Page */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.login-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 40px 32px;
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.login-icon {
+  display: flex;
+  justify-content: center;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.login-card h2 {
+  font-size: 24px;
+  margin: 0 0 4px;
+}
+
+.login-subtitle {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin: 0 0 24px;
+}
+
+.login-card .form-field {
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.login-card .btn-primary {
+  margin-top: 8px;
+}
+
+.login-toggle {
+  margin: 16px 0 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.link-btn:hover {
+  text-decoration: underline;
+}
+
+.logout-btn {
+  margin-left: auto;
+  color: var(--text-secondary);
+}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

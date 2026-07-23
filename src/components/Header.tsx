@@ -1,11 +1,12 @@
-import { Banknote, PieChart, PlusCircle, List } from 'lucide-react'
+import { Banknote, PieChart, PlusCircle, List, LogOut } from 'lucide-react'
 
 interface HeaderProps {
   currentPage: string
   onNavigate: (page: string) => void
+  onSignOut: () => void
 }
 
-export function Header({ currentPage, onNavigate }: HeaderProps) {
+export function Header({ currentPage, onNavigate, onSignOut }: HeaderProps) {
   const tabs = [
     { id: 'dashboard', label: 'Dashboard', icon: PieChart },
     { id: 'add', label: 'Nova Despesa', icon: PlusCircle },
@@ -32,6 +33,9 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
             </button>
           )
         })}
+        <button className="nav-btn logout-btn" onClick={onSignOut} title="Sair">
+          <LogOut size={18} />
+        </button>
       </nav>
     </header>
   )
