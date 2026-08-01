@@ -1,4 +1,24 @@
 import type { Expense } from '../types'
+import { DEFAULT_CATEGORIES } from '../types'
+
+const CATEGORY_STORAGE_KEY = 'controle-financeiro-categories'
+
+export function loadCategories(): string[] {
+  try {
+    const data = localStorage.getItem(CATEGORY_STORAGE_KEY)
+    if (data) {
+      const parsed = JSON.parse(data)
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed
+    }
+    return [...DEFAULT_CATEGORIES]
+  } catch {
+    return [...DEFAULT_CATEGORIES]
+  }
+}
+
+export function saveCategories(categories: string[]): void {
+  localStorage.setItem(CATEGORY_STORAGE_KEY, JSON.stringify(categories))
+}
 
 const STORAGE_KEY = 'controle-financeiro-expenses'
 

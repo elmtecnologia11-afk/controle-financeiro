@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import type { Expense } from './types'
-import { loadExpenses, saveExpenses } from './utils/storage'
+import { loadExpenses, saveExpenses, loadCategories, saveCategories } from './utils/storage'
 import { useFirebase } from './hooks/useFirebase'
 import { Header } from './components/Header'
 import { Dashboard } from './components/Dashboard'
 import { ExpenseForm } from './components/ExpenseForm'
 import { ExpenseList } from './components/ExpenseList'
+import { CategoryForm } from './components/CategoryForm'
 import { LoginPage } from './components/LoginPage'
 import { Loader2 } from 'lucide-react'
 import './App.css'
@@ -13,6 +14,7 @@ import './App.css'
 export default function App() {
   const { user, loading, expenses, addExpense, deleteExpense, login, signUp, signOut, error } = useFirebase()
   const [localExpenses, setLocalExpenses] = useState<Expense[]>(() => loadExpenses())
+  const [categories, setCategories] = useState<string[]>(() => loadCategories())
   const [page, setPage] = useState('dashboard')
 
   useEffect(() => {
@@ -48,6 +50,18 @@ export default function App() {
     }
   }
 
+  const handleAddCategory = (category: string) => {
+    const updated = [...categories, category]
+    setCategories(updated)
+    saveCategories(updated)
+  }
+
+  const handleDeleteCategory = (category: string) => {
+    const updated = categories.filter((c) => c !== category)
+    setCategories(updated)
+    saveCategories(updated)
+  }
+
   if (!user) {
     return <LoginPage onLogin={login} onSignUp={signUp} onClearError={() => {}} error={error} loading={loading} />
   }
@@ -66,8 +80,15 @@ export default function App() {
       <Header currentPage={page} onNavigate={setPage} onSignOut={signOut} />
       <main className="main">
         {page === 'dashboard' && <Dashboard expenses={currentExpenses} />}
-        {page === 'add' && <ExpenseForm onAdd={handleAdd} />}
+        {page === 'add' && <ExpenseForm onAdd={handleAdd} categories={categories} />}
         {page === 'list' && <ExpenseList expenses={currentExpenses} onDelete={handleDelete} />}
+        {page === 'categories' && (
+          <CategoryForm
+            categories={categories}
+            onAdd={handleAddCategory}
+            onDelete={handleDeleteCategory}
+          />
+        )}
       </main>
     </div>
   )

@@ -1,4 +1,4 @@
-import { Banknote, PieChart, PlusCircle, List, LogOut } from 'lucide-react'
+import { Banknote, PieChart, PlusCircle, List, LogOut, Tag } from 'lucide-react'
 
 interface HeaderProps {
   currentPage: string
@@ -8,9 +8,10 @@ interface HeaderProps {
 
 export function Header({ currentPage, onNavigate, onSignOut }: HeaderProps) {
   const tabs = [
-    { id: 'dashboard', label: 'Dashboard', icon: PieChart },
+    { id: 'dashboard', label: 'Início', icon: PieChart },
     { id: 'add', label: 'Nova Despesa', icon: PlusCircle },
     { id: 'list', label: 'Despesas', icon: List },
+    { id: 'categories', label: 'Categorias', icon: Tag },
   ]
 
   return (

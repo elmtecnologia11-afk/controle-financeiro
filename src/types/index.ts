@@ -11,7 +11,7 @@ export interface Expense {
   userId?: string
 }
 
-export const CATEGORIES = [
+export const DEFAULT_CATEGORIES = [
   'Alimentação',
   'Transporte',
   'Moradia',
@@ -25,6 +25,8 @@ export const CATEGORIES = [
   'Utilidades',
   'Outros',
 ] as const
+
+export const CATEGORIES = [...DEFAULT_CATEGORIES]
 
 export const EXPENSE_TYPES: { value: ExpenseType; label: string }[] = [
   { value: 'empresa', label: 'Empresa' },

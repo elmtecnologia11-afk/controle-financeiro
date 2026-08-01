@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import type { Expense } from '../types'
-import { CATEGORIES } from '../types'
 import { PlusCircle, Receipt, Banknote } from 'lucide-react'
 
 interface ExpenseFormProps {
   onAdd: (expense: Omit<Expense, 'id'>) => void
+  categories: string[]
 }
 
-export function ExpenseForm({ onAdd }: ExpenseFormProps) {
+export function ExpenseForm({ onAdd, categories }: ExpenseFormProps) {
   const [description, setDescription] = useState('')
   const [amount, setAmount] = useState('')
-  const [category, setCategory] = useState<string>(CATEGORIES[0])
+  const [category, setCategory] = useState<string>(categories[0] || '')
   const [type, setType] = useState<'empresa' | 'despesas'>('despesas')
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
 
@@ -29,7 +29,7 @@ export function ExpenseForm({ onAdd }: ExpenseFormProps) {
 
     setDescription('')
     setAmount('')
-    setCategory('Alimentação')
+    setCategory(categories[0] || '')
     setDate(new Date().toISOString().split('T')[0])
   }
 
@@ -62,7 +62,7 @@ export function ExpenseForm({ onAdd }: ExpenseFormProps) {
         <div className="form-field">
           <label>Categoria</label>
           <select value={category} onChange={(e) => setCategory(e.target.value)}>
-            {CATEGORIES.map((cat) => (
+            {categories.map((cat) => (
               <option key={cat} value={cat}>{cat}</option>
             ))}
           </select>
