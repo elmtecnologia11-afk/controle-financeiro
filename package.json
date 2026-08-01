@@ -2,7 +2,7 @@
   "name": "controle-financeiro",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://marcosnuno.github.io/controle-financeiro",
+  "homepage": "https://elmtecnologia11-afk.github.io/controle-financeiro",
   "type": "module",
   "scripts": {
     "dev": "vite",
